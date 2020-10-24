@@ -61,6 +61,16 @@
                   v-model="selectedHero.description"
                 />
               </div>
+               <div class="field">
+                <label class="label" for="originDate">origin date</label>
+                <input
+                  type="date"
+                  class="input"
+                  id="originDate"
+                  v-model="selectedHero.originDate"
+                />
+                <p class="comment">My orgin story began on {{ selectedHero.originDate | shortDate }}</p>
+              </div>
               <div class="field">
                 <label class="label" for="capeCounter">cape counter</label>
                 <input
@@ -98,12 +108,16 @@
 </template>
 
 <script>
+import { format } from 'date-fns';
+const inputDateFormat = 'YYYY-MM-DD';
+const displayDateFormat = 'MMM DD, YYYY';
 const ourHeroes = [
   {
     id: 10,
     firstName: 'Ella',
     lastName: 'Papa',
     capeCounter: 1,
+    originDate: format(new Date(1996, 5, 1), inputDateFormat),
     description: 'fashionista',
   },
   {
@@ -111,6 +125,7 @@ const ourHeroes = [
     firstName: 'Madelyn',
     lastName: 'Papa',
     capeCounter: 1,
+    originDate: format(new Date(1997, 6, 1), inputDateFormat),
     description: 'the cat whisperer',
   },
   {
@@ -118,6 +133,7 @@ const ourHeroes = [
     firstName: 'Haley',
     lastName: 'Papa',
     capeCounter: 1,
+    originDate: format(new Date(1998, 7, 1), inputDateFormat),
     description: 'pen wielder',
   },
   {
@@ -125,6 +141,7 @@ const ourHeroes = [
     firstName: 'Landon',
     lastName: 'Papa',
     capeCounter: 1,
+    originDate: format(new Date(1999, 8, 1), inputDateFormat),
     description: 'arc trooper',
   },
 ];
@@ -196,5 +213,10 @@ export default {
       }
     }
   },
+  filters: {
+    shortDate: function(value) {
+      return format(value, displayDateFormat);
+    }
+  }
 };
 </script>
