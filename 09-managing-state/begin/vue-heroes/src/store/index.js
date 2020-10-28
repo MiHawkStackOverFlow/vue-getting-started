@@ -1,7 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { dataService } from '../shared';
-import { GET_HEROES } from './mutation-types';
+import {
+  GET_HEROES,
+  ADD_HERO,
+  DELETE_HERO,
+  UPDATE_HERO,
+} from './mutation-types';
 
 Vue.use(Vuex);
 
@@ -12,6 +17,17 @@ const state = {
 const mutations = {
   [GET_HEROES](state, heroes) {
     state.heroes = heroes;
+  },
+  [ADD_HERO](state, hero) {
+    state.heroes.push(hero);
+  },
+  [DELETE_HERO](state, hero) {
+    state.heroes = [...state.heroes.filter(h => h.id !== hero.id)];
+  },
+  [UPDATE_HERO](state, hero) {
+    const index = state.heroes.findIndex(h => h.id === hero.id);
+    state.heroes.splice(index, 1, hero);
+    state.heroes = [...state.heroes];
   },
 };
 
