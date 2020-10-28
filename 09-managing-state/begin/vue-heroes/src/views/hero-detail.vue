@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { dataService } from '../shared';
 
 export default {
@@ -73,10 +74,12 @@ export default {
         description: '',
       };
     } else {
-      this.hero = await dataService.getHero(this.id);
+      // this.hero = await dataService.getHero(this.id);
+      this.hero = this.getHeroById(this.id);
     }
   },
   computed: {
+    ...mapGetters(['getHeroById']),
     isAddMode() {
       return !this.id;
     },
